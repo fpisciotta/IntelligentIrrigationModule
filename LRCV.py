@@ -14,8 +14,8 @@ read.pop(0)
 input,output=[],[]
 for row in read:
     #input.append(row[4:6]+row[7:9]+row[11:13])
-    input.append(row[5:14])
-    output.append(row[15])
+    input.append(row[6:15])
+    output.append(row[16])
 print('Input',input[0])
 print('Output',output[0])
 input=np.array(input).astype(np.float)

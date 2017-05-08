@@ -36,11 +36,11 @@ X_train, X_test, y_train, y_test = train_test_split(input, output, test_size=0.2
 ##Preprocessing data
 scaler = preprocessing.MinMaxScaler()
 #scaler = preprocessing.MaxAbsScaler()
-X_train = scaler.fit_transform(X_train)
+X_train = scaler.fit_transform(X_train,y_train)
 scale = scaler.scale_
-y_train = scaler.fit_transform(y_train)
-X_test = scaler.fit_transform(X_test)
-y_test = scaler.fit_transform(y_test)
+#y_train = scaler.fit_transform(y_train)
+X_test = scaler.fit_transform(X_test,y_test)
+#y_test = scaler.fit_transform(y_test)
 
 ###Runing different linear regression algorithms######
 #scores, pvalues = chi2(X_train, y_train);

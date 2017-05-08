@@ -3,8 +3,10 @@ import csv
 import numpy as np
 import requests
 import json
+
 from regression import generateModel
 from sklearn import linear_model
+from sklearn.externals import joblib
 from sklearn.model_selection import cross_val_predict
 from sklearn.cross_validation import train_test_split
 from sklearn import preprocessing
@@ -109,3 +111,5 @@ width = 1/1.5
 plt.bar(range(len(results)), results, width, color="blue")
 ax.set_xticklabels(labels)
 plt.show()
+
+joblib.dump(model, './model/model.pkl') 

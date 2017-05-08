@@ -14,22 +14,22 @@ read.pop(0)
 input,output=[],[]
 for row in read:
     #input.append(row[4:6]+row[7:9]+row[11:13])
-    input.append(row[6:15])
-    output.append(row[16])
+    input.append(row[3:4]+row[6:15])
+    output.append(row[15])
 print('Input',input[0])
 print('Output',output[0])
 input=np.array(input).astype(np.float)
 output=np.array(output).astype(np.float)
-input=np.array(input)
-output=np.array(output)
+
 
 X_train, X_test, y_train, y_test = train_test_split(input, output, test_size=0.2, random_state=0)
 
-#X = input[:-81]
-#y = output[:-81]
-
-#X_test = input[-81:]
-#y_test = output[-81:]
+##Preprocessing data
+#min_max_scaler = preprocessing.MinMaxScaler()
+#X_train = min_max_scaler.fit_transform(X_train)
+#y_train = min_max_scaler.fit_transform(y_train)
+#X_test = min_max_scaler.fit_transform(X_test)
+#y_test = min_max_scaler.fit_transform(y_test)
 
 lasso = Lasso(random_state=0)
 alphas = np.logspace(-4, -0.5, 30)

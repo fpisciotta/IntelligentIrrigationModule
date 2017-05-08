@@ -37,10 +37,11 @@ X_train, X_test, y_train, y_test = train_test_split(input, output, test_size=0.2
 scaler = preprocessing.MinMaxScaler()
 #scaler = preprocessing.MaxAbsScaler()
 X_train = scaler.fit_transform(X_train)
+scale = scaler.scale_
 y_train = scaler.fit_transform(y_train)
 X_test = scaler.fit_transform(X_test)
 y_test = scaler.fit_transform(y_test)
-scale = scaler.scale_
+
 ###Runing different linear regression algorithms######
 #scores, pvalues = chi2(X_train, y_train);
 algorithmsToTest = ['linear','ridge','ridgeCV', 'lasso', 'bayesianRidge','SGDRegressor','MLPRegressor']
@@ -111,5 +112,8 @@ width = 1/1.5
 plt.bar(range(len(results)), results, width, color="blue")
 ax.set_xticklabels(labels)
 plt.show()
-
+payload = {}
+payload['features_scale'] = ','.join(str(x) for x in scale)
+with open('./model/feature_scale.txt', 'w') as f:
+        json.dump(payload, f)        
 joblib.dump(model, './model/model.pkl') 

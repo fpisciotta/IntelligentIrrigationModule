@@ -1,9 +1,27 @@
 from django.shortcuts import render
 from django.http import JsonResponse,HttpResponse
+from sklearn.externals import joblib
+from django.views.decorators.csrf import csrf_exempt
+import os.path,json,base64,sys, numpy as np
+BASE = os.path.dirname(os.path.abspath(__file__))
 
-# Create your views here.
+@csrf_exempt 
 def predict(request):
-    return JsonResponse({'Test':'Success'})
+    if request.method == 'POST':
+        clf = joblib.load(os.path.join(BASE, "model.pkl"))
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        print(body['parameters'])
+        content = body['parameters'].split(' ')
+        content = [int(x) for x in content]
+        content = np.array(content).astype(np.float)
+        print(content)
+        try:
+            result = clf.predict(content)
+            print(result)
+        except:
+            return HttpResponse(sys.exc_info()[0], content_type="application/json")
+
 
 def index(request):
     print("TEST")

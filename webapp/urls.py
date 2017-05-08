@@ -18,5 +18,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$',views.index,name="webapp"),
-    url(r'^api/predict/$', views.predict,name="predict"),
+    url(r'^api/predict$', views.predict,name="predict"),
 ]

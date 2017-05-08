@@ -8,19 +8,22 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 @csrf_exempt 
 def predict(request):
     if request.method == 'POST':
+
         clf = joblib.load(os.path.join(BASE, "model.pkl"))
         body_unicode = request.body.decode('utf-8')
+        print(body_unicode)
         body = json.loads(body_unicode)
         print(body['parameters'])
         content = body['parameters'].split(' ')
-        content = [int(x) for x in content]
+        content = [float(x) for x in content]
         content = np.array(content).astype(np.float)
         print(content)
         try:
             result = clf.predict(content)
-            print(result)
+            resp = { 'prediction': result[0]}
         except:
             return HttpResponse(sys.exc_info()[0], content_type="application/json")
+        return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
 def index(request):
